@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'post',
     'contact',
     'taggit',
+    'markdown_deux',
 ]
 
 MIDDLEWARE = [

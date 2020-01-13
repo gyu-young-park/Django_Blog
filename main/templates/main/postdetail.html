@@ -1,6 +1,7 @@
 {% extends "main/base.html" %}
 {% block content %}
 {% load static %}
+{% load markdown_deux_tags %}
   <!-- Page Header -->
   <header class="masthead" style="background-image: url('{% static 'img/post-bg.jpg' %}')">
     <div class="overlay"></div>
@@ -27,6 +28,7 @@
           {% if post.img %}
             <img class="img-fluid" src="{{post.img.url}}" alt="post_image">
           {% endif %}
+          {{ post.contents|markdown }}
           <p>{{post.contents|linebreaks}}</p>
           <p>태그 : {{post.category.names.0}}</p>
         </div>

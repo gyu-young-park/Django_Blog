@@ -12,7 +12,7 @@ urlpatterns = [
     path('', index, name='index'),
     path('about/',about , name='about'),
     path('post/',post ,name='post'),
-    path('post/<int:pk>/',postdetail ,name='detail'),
+    path('main/<int:pk>/',postdetail ,name='detail'),
     path('contact/',contact ,name='contact'),
 ]
 
