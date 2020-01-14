@@ -6,8 +6,8 @@ from taggit.managers import TaggableManager
 class Post(models.Model):
     title = models.CharField(max_length=50)
     contents = models.TextField()
-    img = models.ImageField()
-    dateCreate = models.DateTimeField()
+    img = models.ImageField(upload_to='images/')
+    dateCreate = models.DateTimeField(auto_now_add=True)
     category = TaggableManager()
 
     def __str__(self):

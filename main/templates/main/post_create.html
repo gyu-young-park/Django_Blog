@@ -1,6 +1,6 @@
-{% extends "main/base.html" %}
-{% block content %}
+{% extends 'main/base.html' %}
 {% load static %}
+{% block content %}
   <header class="masthead" style="background-image: url('{% static 'img/about-bg.jpg' %}')">
     <div class="overlay"></div>
     <div class="container">
@@ -15,11 +15,14 @@
     </div>
   </header>
   <div class="container">
-    <h2>로그인</h2>
-      <form method="post">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <button class="btn btn-outline-info" type="submit">로그인</button>
-      </form>
+    <form action="{% url 'post-create' %}" method="post" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button class="btn btn-outline-info" type="submit">등록</button>
+    </form>
   </div>
+
 {% endblock %}
+

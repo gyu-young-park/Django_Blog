@@ -1,12 +1,12 @@
-from django.shortcuts import render , redirect , HttpResponse
+from django.shortcuts import render , redirect , HttpResponse , HttpResponseRedirect
 from .models import Post
-from .forms import UserForm
+from .forms import UserForm , PostForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login , authenticate ,logout
 # Create your views here.
 # Create your views here.
 def index(req):
-    postAll = Post.objects.all()
+    postAll = Post.objects.all().select_related().order_by('-dateCreate')
     return render(req,'main/index.html',{
         'postAll' : postAll,
     })
@@ -15,6 +15,19 @@ def postdetail(req, pk):
     post = Post.objects.get(pk=pk)
     return render(req,'main/postdetail.html',{
         'post':post,
+    })
+
+def post_create(req):
+    if req.method == 'POST':
+        ##image는 files로 온다
+        form = PostForm(req.POST, req.FILES)
+        print(form)
+        if form.is_valid():
+            new_item = form.save()
+        return HttpResponseRedirect('/')
+    form = PostForm()
+    return render(req, 'main/post_create.html',{
+        'form' : form,
     })
 
 def signin(req):
