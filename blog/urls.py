@@ -1,19 +1,14 @@
 from django.contrib import admin
-from django.urls import path
-from main.views import index, postdetail
-from about.views import about
-from post.views import post
-from contact.views import contact
+from django.urls import path ,include
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='index'),
-    path('about/',about , name='about'),
-    path('post/',post ,name='post'),
-    path('main/<int:pk>/',postdetail ,name='detail'),
-    path('contact/',contact ,name='contact'),
+    path('',  include('main.urls')),
+    path('about/', include('about.urls')),
+    path('contact/',include('contact.urls')),
+    path('post/',include('post.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
