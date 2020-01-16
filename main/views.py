@@ -1,4 +1,4 @@
-from django.shortcuts import render , redirect , HttpResponse , HttpResponseRedirect
+from django.shortcuts import render , redirect , HttpResponse , HttpResponseRedirect , get_object_or_404
 from .models import Post
 from .forms import UserForm , PostForm
 from django.contrib.auth.models import User
@@ -29,6 +29,26 @@ def post_create(req):
     return render(req, 'main/post_create.html',{
         'form' : form,
     })
+
+def post_update(req):
+    if req.method == 'POST':
+        post = get_object_or_404(Post,pk=req.POST.get('id'))
+        form = PostForm(req.POST , instance=post)
+        if form.is_valid():
+            item = form.save()
+    elif req.method == 'GET':
+        post = get_object_or_404(Post,pk=req.GET.get('id'))
+        form = PostForm(instance=post)
+        return render(req, 'main/post_update.html', {
+            'form' : form,
+        })
+    return redirect('index')
+
+def post_delete(req,pk):
+    post = get_object_or_404(Post,pk=pk)
+    post.delete()
+    return HttpResponseRedirect('/')
+
 
 def signin(req):
     if req.method == "POST":
