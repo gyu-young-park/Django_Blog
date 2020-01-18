@@ -3,8 +3,7 @@ from .models import Post
 from .forms import UserForm , PostForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login , authenticate ,logout
-# Create your views here.
-# Create your views here.
+
 def index(req):
     postAll = Post.objects.all().select_related().order_by('-dateCreate')
     return render(req,'main/index.html',{
